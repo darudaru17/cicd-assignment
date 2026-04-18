@@ -1,0 +1,19 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: ci-task
+spec:
+  steps:
+    - name: cleanup
+      image: python:3.10
+      script: |
+        #!/bin/sh
+        echo "Cleaning up..."
+        rm -rf __pycache__ *.pyc
+
+    - name: test
+      image: python:3.10
+      script: |
+        #!/bin/sh
+        pip install pytest
+        pytest
